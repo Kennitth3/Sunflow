@@ -1,231 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>🌸 Sunflow Search</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- OpenSearch support -->
-<link rel="search" type="application/opensearchdescription+xml" 
-      title="Sunflow" href="opensearch.xml">
-
-<style>
-:root {
-  --bg-gradient: linear-gradient(135deg,#141e30,#243b55);
-  --primary: #66ccff;
-  --accent: #ff66cc;
-  --card-bg: #1a1a1a;
-  --text-color: #eee;
-}
-body {
-  margin:0; padding:0; font-family:'Segoe UI',sans-serif;
-  background:var(--bg-gradient);
-  color:var(--text-color);
-  height:100vh; overflow:hidden;
-}
-header {
-  width:100%; padding:15px; background:#111;
-  display:flex; align-items:center; justify-content:space-between;
-  box-shadow:0 2px 10px rgba(0,0,0,0.6);
-  position:fixed; top:0; left:0; z-index:1000;
-}
-h1 { margin:0; font-size:1.8em;
-  background:linear-gradient(90deg,var(--accent),var(--primary));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-.nav-buttons button {
-  margin-left:10px; padding:6px 14px; border:none; border-radius:8px;
-  cursor:pointer; font-weight:bold; background:#222; color:var(--text-color);
-  transition:0.3s;
-}
-.nav-buttons button.active {background:var(--primary); color:#111;}
-.nav-buttons button:hover {background:#444; transform:translateY(-2px);}
-#desktop {
-  position:absolute; top:70px; left:0; right:0; bottom:0;
-  display:flex; flex-direction:column; align-items:center;
-  overflow:auto; padding:20px;
-}
-/* Search actions */
-.actions {display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px;}
-.actions input {
-  padding:10px; border-radius:6px; border:none; width:300px; max-width:90%;
-  transition:0.3s;
-}
-.actions input:focus {outline:none; box-shadow:0 0 10px var(--primary);}
-.actions button {
-  padding:10px 15px; border-radius:6px; border:none; background:var(--primary);
-  color:#111; cursor:pointer; font-weight:bold; transition:0.3s;
-}
-.actions button:hover {background:#0af; transform:scale(1.05);}
-/* Results */
-#results {
-  display:flex; flex-wrap:wrap; justify-content:center;
-  gap:20px; width:100%; min-height:200px; transition:opacity 0.4s ease;
-}
-.site-card {
-  background:var(--card-bg); border-radius:14px; padding:16px; width:250px;
-  display:flex; flex-direction:column; gap:12px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.6);
-  cursor:pointer; position:relative;
-  animation:fadeUp 0.5s ease;
-  transition:0.3s;
-}
-.site-card:hover {transform:scale(1.05);}
-.site-card h3 {margin:0; color:var(--primary);}
-.site-card p {margin:0; font-size:0.9em; color:#ccc;}
-.site-card .site-actions {display:flex; justify-content:space-between;}
-.site-card .site-actions button,a {
-  background:none; border:none; color:#0f8; font-weight:bold; cursor:pointer;
-  transition:0.3s;
-}
-.site-card .site-actions button:hover,a:hover {color:#0fc; transform:translateX(4px);}
-.no-results {
-  color:#888; font-weight:bold; text-align:center; width:100%;
-  animation:fadeIn 0.5s ease;
-}
-/* Popup */
-.popup-bg {
-  display:none; position:fixed; top:0; left:0; right:0; bottom:0;
-  background:rgba(0,0,0,0.7); z-index:2000;
-  display:flex; justify-content:center; align-items:center;
-}
-.popup {
-  background:#1a1a1a; padding:20px; border-radius:12px; width:350px;
-  text-align:center; box-shadow:0 6px 20px rgba(0,0,0,0.7);
-  transform:scale(0.8); animation:popUp 0.4s forwards;
-}
-.popup input {
-  width:90%; padding:8px; margin:6px 0; border-radius:6px; border:none;
-}
-.popup button {
-  margin:5px; padding:8px 12px; border:none; border-radius:6px;
-  background:var(--primary); color:#111; cursor:pointer; font-weight:bold;
-}
-.popup button:hover {background:#0af;}
-/* Viewer window */
-#viewer-window {
-  position:absolute; top:120px; left:60px; width:700px; height:500px;
-  background:#111; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.8);
-  display:none; flex-direction:column; z-index:1500;
-  animation:fadeIn 0.5s ease;
-}
-#viewer-header {
-  background:#222; padding:8px; cursor:move;
-  display:flex; justify-content:space-between; align-items:center;
-  border-top-left-radius:12px; border-top-right-radius:12px;
-}
-#viewer-header span {color:var(--primary); font-weight:bold;}
-#viewer-header button {
-  border:none; background:var(--accent); color:#fff;
-  border-radius:6px; cursor:pointer; padding:4px 8px;
-}
-#viewer iframe {
-  flex:1; width:100%; border:none;
-  border-bottom-left-radius:12px; border-bottom-right-radius:12px;
-}
-/* Animations */
-@keyframes fadeUp {from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);}}
-@keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
-@keyframes popUp {to{transform:scale(1);}}
-</style>
+  <meta charset="UTF-8">
+  <title>🌸 Sunflow</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffcc70, #ff8177);
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      transition: background 0.5s ease;
+    }
+    header {
+      margin: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+    }
+    .search-box {
+      display: flex;
+      margin: 20px;
+    }
+    .search-box input {
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      width: 300px;
+      outline: none;
+    }
+    .search-box button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .search-box button:hover {
+      background: #555;
+    }
+    #results {
+      margin: 20px;
+      width: 80%;
+      max-width: 700px;
+      text-align: left;
+    }
+    .site-entry {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      animation: fadeInUp 0.5s ease;
+    }
+    .site-entry h3 {
+      margin: 0;
+    }
+    .site-entry a {
+      color: #0073e6;
+      text-decoration: none;
+    }
+    .controls {
+      margin: 10px;
+    }
+    .controls button {
+      padding: 6px 12px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #444;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    .controls button:hover {
+      background: #666;
+    }
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      max-width: 400px;
+      width: 90%;
+    }
+    .popup h2 {
+      margin-top: 0;
+    }
+    .popup input {
+      margin: 5px 0;
+      padding: 6px;
+      width: 100%;
+    }
+    .popup button {
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from {opacity:0;}
+      to {opacity:1;}
+    }
+    @keyframes fadeInUp {
+      from {opacity:0; transform: translateY(20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>🌸 Sunflow</h1>
+    <p>Your community-powered search engine</p>
+  </header>
 
-<header>
-  <h1>🌸 Sunflow</h1>
-  <div class="nav-buttons">
-    <button id="tab-search" class="active" onclick="switchTab('search')">Explore</button>
-    <button id="tab-add" onclick="switchTab('add')">Manage</button>
-  </div>
-</header>
-
-<div id="desktop">
-  <!-- Explore -->
-  <div id="view-search">
-    <div class="actions">
-      <input id="search" placeholder="Type to search..." onkeyup="if(event.key==='Enter') doSearch()">
-      <button onclick="doSearch()">🔍 Search</button>
-    </div>
-    <div id="results"><p class="no-results">Start by searching 🔍</p></div>
+  <div class="controls">
+    <button onclick="openPopup('addSitePopup')">➕ Add Site</button>
+    <button onclick="openPopup('settingsPopup')">⚙️ Customize</button>
+    <button onclick="openPopup('helpPopup')">❓ How to Use</button>
   </div>
 
-  <!-- Manage -->
-  <div id="view-add" style="display:none;">
-    <div class="actions">
-      <button onclick="openPopup()">➕ Add a Site</button>
-      <button onclick="exportDB()">📤 Export</button>
-      <input type="file" id="importInput" onchange="importDB(event)" style="display:none;">
-      <button onclick="document.getElementById('importInput').click()">📥 Import</button>
-    </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search Sunflow...">
+    <button onclick="searchSites()">Search</button>
   </div>
-</div>
 
-<!-- Popup -->
-<div class="popup-bg" id="popup-bg">
-  <div class="popup">
-    <h2>Add New Site</h2>
-    <input id="titleInput" placeholder="Title">
-    <input id="descInput" placeholder="Description">
-    <input id="linkInput" placeholder="Link (optional)">
-    <div><button onclick="chooseFile()">Upload File</button><input type="file" id="fileInput" style="display:none;"></div>
-    <div><button onclick="savePopup()">Save</button><button onclick="closePopup()">Cancel</button></div>
+  <div id="results"></div>
+
+  <!-- Add Site Popup -->
+  <div id="addSitePopup" class="popup">
+    <h2>Add a Website</h2>
+    <input type="text" id="title" placeholder="Title">
+    <input type="text" id="url" placeholder="https://example.com">
+    <input type="text" id="description" placeholder="Description">
+    <button onclick="addSite()">Submit</button>
+    <button onclick="closePopup('addSitePopup')">Close</button>
   </div>
-</div>
 
-<!-- Viewer -->
-<div id="viewer-window">
-  <div id="viewer-header">
-    <span>Site Preview</span>
-    <button onclick="closeViewer()">X</button>
+  <!-- Settings Popup -->
+  <div id="settingsPopup" class="popup">
+    <h2>Customize Sunflow</h2>
+    <label>Background Gradient:</label>
+    <input type="text" id="bgGradient" placeholder="e.g. linear-gradient(135deg, #74ebd5, #ACB6E5)">
+    <button onclick="saveSettings()">Save</button>
+    <button onclick="closePopup('settingsPopup')">Close</button>
   </div>
-  <iframe id="viewer-iframe"></iframe>
-</div>
 
-<script>
-// IndexedDB
-const DB_NAME="sunflowDB", STORE_NAME="sites"; let database=[], tempFiles=[];
-function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=e=>{e.target.result.createObjectStore(STORE_NAME,{keyPath:"id",autoIncrement:true})};r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
-async function loadDB(){const db=await openDB();const tx=db.transaction(STORE_NAME,"readonly");const store=tx.objectStore(STORE_NAME);const req=store.getAll();req.onsuccess=()=>{database=req.result||[];};}
-async function saveSite(site){const db=await openDB();const tx=db.transaction(STORE_NAME,"readwrite");tx.objectStore(STORE_NAME).add(site);}
+  <!-- Help Popup -->
+  <div id="helpPopup" class="popup">
+    <h2>How to Use Sunflow</h2>
+    <p>🔍 Use the search box to find community-added websites.</p>
+    <p>➕ Click "Add Site" to contribute your own site.</p>
+    <p>⚙️ Use "Customize" to change the look just for you (local only).</p>
+    <button onclick="closePopup('helpPopup')">Got it!</button>
+  </div>
 
-// Search
-function doSearch(){let q=document.getElementById('search').value.toLowerCase();let results=database.filter(s=>s.title.toLowerCase().includes(q)||s.description.toLowerCase().includes(q));display(results);if(results.length===0){document.getElementById("results").innerHTML=`<p class="no-results">❌ No results</p>`;}}
-function display(sites){let out="";sites.forEach((s,i)=>{out+=`<div class='site-card'><h3>${s.title}</h3><p>${s.description}</p><div class='site-actions'>${s.link?`<a href="${s.link}" target="_blank">Visit</a>`:""}${s.files&&s.files.length>0?`<button onclick="openViewer(${i})">Open</button>`:""}</div></div>`;});document.getElementById("results").innerHTML=out||`<p class="no-results">❌ No results</p>`;}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = "https://cclfnvwodwyjyngeqgzj.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjbGZudndvZHd5anluZ2VxZ3pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTMwNDQsImV4cCI6MjA3NDQ2OTA0NH0.OUGECpT8ecwnvSTAdiO34bUjMEwi1mHo_pWdsg0hQFk";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Viewer
-let viewer=document.getElementById("viewer-window"), iframe=document.getElementById("viewer-iframe");
-function openViewer(index){let site=database[index];if(site.files&&site.files.length>0){iframe.src=site.files[0].content;viewer.style.display="flex";}}
-function closeViewer(){viewer.style.display="none";}
+    // Add Site
+    async function addSite() {
+      const title = document.getElementById("title").value;
+      const url = document.getElementById("url").value;
+      const description = document.getElementById("description").value;
 
-// Export/Import
-function exportDB(){let dataStr=JSON.stringify(database,null,2);let blob=new Blob([dataStr],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="sunflow-db.json";a.click();URL.revokeObjectURL(url);}
-function importDB(event){let file=event.target.files[0];let reader=new FileReader();reader.onload=async e=>{let imported=JSON.parse(e.target.result);for(let site of imported){await saveSite(site);}alert("Imported! Refresh to see changes.");};reader.readAsText(file);}
+      const { error } = await supabaseClient
+        .from("websites")
+        .insert([{ title, url, description }]);
 
-// Popup
-function openPopup(){document.getElementById("popup-bg").style.display="flex";}
-function closePopup(){document.getElementById("popup-bg").style.display="none"; tempFiles=[];}
-function chooseFile(){document.getElementById("fileInput").click();}
-document.getElementById("fileInput").addEventListener("change",e=>{let file=e.target.files[0];let reader=new FileReader();reader.onload=evt=>{tempFiles.push({name:file.name,content:evt.target.result});alert(`Uploaded: ${file.name}`);};reader.readAsDataURL(file);});
-function savePopup(){let title=document.getElementById("titleInput").value;let desc=document.getElementById("descInput").value;let link=document.getElementById("linkInput").value;let site={title,description:desc,link,files:tempFiles};saveSite(site);closePopup();}
+      if (error) {
+        alert("❌ " + error.message);
+      } else {
+        alert("✅ Site added!");
+        closePopup('addSitePopup');
+      }
+    }
 
-// Tabs
-function switchTab(tab){document.getElementById("view-search").style.display=(tab==="search"?"block":"none");document.getElementById("view-add").style.display=(tab==="add"?"block":"none");document.getElementById("tab-search").classList.toggle("active",tab==="search");document.getElementById("tab-add").classList.toggle("active",tab==="add");}
+    // Search
+    async function searchSites() {
+      const term = document.getElementById("searchInput").value.trim();
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
 
-// Drag viewer
-let isDragging=false, offsetX=0, offsetY=0, header=document.getElementById("viewer-header");
-header.onmousedown=e=>{isDragging=true;offsetX=e.clientX-viewer.offsetLeft;offsetY=e.clientY-viewer.offsetTop;}
-document.onmouseup=()=>{isDragging=false;}
-document.onmousemove=e=>{if(isDragging){viewer.style.left=(e.clientX-offsetX)+"px";viewer.style.top=(e.clientY-offsetY)+"px";}}
+      if (!term) {
+        resultsDiv.innerHTML = "<p>Enter something to search.</p>";
+        return;
+      }
 
-// Auto-search if ?q= in URL
-const params = new URLSearchParams(window.location.search);
-if (params.has("q")) {
-  const query = params.get("q");
-  document.getElementById("search").value = query;
-  setTimeout(doSearch, 300);
-}
+      const { data, error } = await supabaseClient
+        .from("websites")
+        .select("*")
+        .ilike("title", `%${term}%`);
 
-loadDB();
-</script>
+      if (error) {
+        resultsDiv.innerHTML = "<p>❌ " + error.message + "</p>";
+      } else if (data.length === 0) {
+        resultsDiv.innerHTML = "<p>No results found.</p>";
+      } else {
+        data.forEach(site => {
+          const div = document.createElement("div");
+          div.className = "site-entry";
+          div.innerHTML = `
+            <h3><a href="${site.url}" target="_blank">${site.title}</a></h3>
+            <p>${site.description || ""}</p>
+          `;
+          resultsDiv.appendChild(div);
+        });
+      }
+    }
+
+    // Popup Controls
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Local Settings
+    function saveSettings() {
+      const bg = document.getElementById("bgGradient").value;
+      if (bg) {
+        document.body.style.background = bg;
+        localStorage.setItem("sunflow-bg", bg);
+      }
+      closePopup("settingsPopup");
+    }
+
+    function loadSettings() {
+      const bg = localStorage.getItem("sunflow-bg");
+      if (bg) {
+        document.body.style.background = bg;
+      }
+    }
+
+    loadSettings();
+  </script>
 </body>
 </html>
