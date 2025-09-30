@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🌸 Sunflow</title>
+  <title>Sunflow</title>
   <link rel="icon" size="30x30" href="sunflow.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -253,6 +253,7 @@
 
       localStorage.setItem("sunflowTheme", JSON.stringify({start,end,font,bgImage:bgImageInput.files[0]?URL.createObjectURL(bgImageInput.files[0]):null}));
       alert("🌸 Theme applied!");
+      window.location.reload();
     }
 
     function resetTheme() {
