@@ -232,29 +232,49 @@
     }
 
     // Customization
-    function applyCustomTheme() {
-      const start=document.getElementById("colorStart").value;
-      const end=document.getElementById("colorEnd").value;
-      const font=document.getElementById("fontSelect").value;
-      const bgImageInput=document.getElementById("bgImage");
+function applyCustomTheme() {
+  const start = document.getElementById("colorStart").value;
+  const end = document.getElementById("colorEnd").value;
+  const font = document.getElementById("fontSelect").value;
+  const bgImageInput = document.getElementById("bgImage");
 
-      document.body.style.background = `linear-gradient(135deg, ${start}, ${end})`;
-      document.body.style.fontFamily = font;
+  document.body.style.background = `linear-gradient(135deg, ${start}, ${end})`;
+  document.body.style.fontFamily = font;
 
-      if(bgImageInput.files && bgImageInput.files[0]){
-        const reader = new FileReader();
-        reader.onload=function(e){
-          document.body.style.backgroundImage=`url(${e.target.result})`;
-          document.body.style.backgroundSize="cover";
-          document.body.style.backgroundRepeat="no-repeat";
-        };
-        reader.readAsDataURL(bgImageInput.files[0]);
-      } else { document.body.style.backgroundImage="none"; }
+  if (bgImageInput.files && bgImageInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imageData = e.target.result; // Base64 string
+      document.body.style.backgroundImage = `url(${imageData})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
 
-      localStorage.setItem("sunflowTheme", JSON.stringify({start,end,font,bgImage:bgImageInput.files[0]?URL.createObjectURL(bgImageInput.files[0]):null}));
+      // Save theme including image
+      localStorage.setItem("sunflowTheme", JSON.stringify({
+        start,
+        end,
+        font,
+        bgImage: imageData
+      }));
+
       alert("🌸 Theme applied!");
       window.location.reload();
-    }
+    };
+    reader.readAsDataURL(bgImageInput.files[0]); // Convert to Base64
+  } else {
+    // Save without image
+    localStorage.setItem("sunflowTheme", JSON.stringify({
+      start,
+      end,
+      font,
+      bgImage: null
+    }));
+
+    document.body.style.backgroundImage = "none";
+    alert("🌸 Theme applied!");
+    window.location.reload();
+  }
+}
 
     function resetTheme() {
       document.body.style.background="linear-gradient(135deg, #6a11cb, #2575fc)";
