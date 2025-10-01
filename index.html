@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Sunflow</title>
-  <link rel="icon" size="30x30" href="sunflow.png">
+  <link rel="icon" sizes="32x32" href="file:///home/chronos/u-833ea116e18c247117c5acf27c198527966da33d/MyFiles/Downloads/sunflow - Edited.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       color: #fff;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      font-family: 'Segoe UI', sans-serif;
+      background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F926551.jpg&f=1&nofb=1&ipt=ad4b0d895b0170e3f53e736809724958832a08e4a59607275c66b53b8ebf4453);
+      font-family: 'Creepster';
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -162,6 +163,7 @@
       <option value="Arial, sans-serif">Arial</option>
       <option value="'Courier New', monospace">Courier New</option>
       <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+      <option value="Creepster">Creepster</option>
       <option value="'Roboto', sans-serif">Roboto</option>
     </select>
     <label>Background Image:</label>
@@ -232,7 +234,7 @@
     }
 
     // Customization
-function applyCustomTheme() {
+    function applyCustomTheme() {
   const start = document.getElementById("colorStart").value;
   const end = document.getElementById("colorEnd").value;
   const font = document.getElementById("fontSelect").value;
