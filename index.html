@@ -224,7 +224,6 @@
         .order('id', {ascending:false});
       const spooky = new Date().getMonth();
       if(error){ resultsDiv.innerHTML="<p>❌ "+error.message+"</p>"; }
-      else if(data || (data.title==="Is it spooky month?" && spooky === 9)){ resultsDiv.innerHTML="<p>Its SPOOKY MONTH</p>"; else{resultsDiv.innerHTML="<p>Its not :C</p>";} }
       else if(!data || data.length===0){ resultsDiv.innerHTML="<p>No results found 🌑</p>"; }
       else{
         data.forEach(site=>{
